@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AssignmentIndividu</string>
+    <string name="LogoString">PuFF and Poof Logo</string>
+    <string name="tabLayoutText">This is tab layout</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_placeholder">Doll Name</string>
+    <string name="pricePlaceholder">$12</string>
+    <string name="sizePlaceholder">5 in</string>
+    <string name="usernamePlaceholder">adminpuff</string>
+</resources>

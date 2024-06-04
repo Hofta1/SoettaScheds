@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterPage">
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="233dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#905C3F"
+        android:text="Register"
+        android:textColor="#F9E3AF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:cornerRadius="30dp"
+        app:iconTint="#F9E3AF"
+        app:layout_constraintBottom_toTopOf="@+id/loginText"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/PasswordTL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Password"
+        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundMode="filled"
+        app:boxCollapsedPaddingTop="8dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconMode="password_toggle"
+        app:helperText=""
+        app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:helperTextTextColor="#CC0606"
+        app:hintTextColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline"
+        app:layout_constraintTop_toBottomOf="@+id/UsernameTL"
+        app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+        app:startIconTint="#000000"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/UsernameTL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Username"
+        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundMode="filled"
+        app:boxCollapsedPaddingTop="8dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconMode="custom"
+        app:helperText=""
+        app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:helperTextTextColor="#CC0606"
+        app:hintTextColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline"
+        app:layout_constraintTop_toBottomOf="@+id/registerTitle"
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:startIconTint="#000000"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/registerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Register"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/headerguideline"
+        tools:ignore="HardcodedText" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftguideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightguideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="395dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/headerguideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/EmailTL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Email"
+        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundMode="filled"
+        app:boxCollapsedPaddingTop="8dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:helperText=""
+        app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:helperTextTextColor="#CC0606"
+        app:hintTextColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordTL"
+        app:startIconDrawable="@android:drawable/sym_action_email"
+        app:startIconScaleType="centerInside"
+        app:startIconTint="#000000"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/PhoneNumberTL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Phone Number"
+        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundMode="filled"
+        app:boxCollapsedPaddingTop="8dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:helperText=""
+        app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:helperTextTextColor="#CC0606"
+        app:hintTextColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline"
+        app:layout_constraintTop_toBottomOf="@+id/EmailTL"
+        app:startIconDrawable="@android:drawable/ic_menu_call"
+        app:startIconScaleType="centerInside"
+        app:startIconTint="#000000"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phonenumberText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/genderGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#ECECEC"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline"
+        app:layout_constraintTop_toBottomOf="@+id/PhoneNumberTL">
+
+        <ImageView
+            android:id="@+id/maleIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:outlineAmbientShadowColor="#C62222"
+            app:srcCompat="@drawable/baseline_male_24"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="0dp"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="443dp" />
+
+        <ImageView
+            android:id="@+id/femaleIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/baseline_female_24"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="0dp"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="443dp" />
+
+        <RadioButton
+            android:id="@+id/maleButton"
+            android:layout_width="153dp"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="186dp"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="443dp" />
+
+        <RadioButton
+            android:id="@+id/femaleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="375dp"
+            tools:layout_editor_absoluteX="206dp"
+            tools:layout_editor_absoluteY="443dp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="50dp"
+        android:text="Already has an account? Log in here"
+        app:layout_constraintBottom_toTopOf="@+id/footerGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/rightguideline"
+        app:layout_constraintStart_toStartOf="@+id/leftguideline" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/footerGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="712dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

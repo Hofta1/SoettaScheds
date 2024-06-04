@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transactionCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:paddingBottom="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:background="@drawable/outline"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/transactionIV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="5dp"/>
+
+
+        <TextView
+            android:id="@+id/dollNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_placeholder"
+            android:textAlignment="center"
+            android:textColor="@color/defaultText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/transactionIV"
+            app:layout_constraintTop_toTopOf="@+id/transactionIV"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/transactionIDTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="ID: "
+            android:textColor="@color/defaultText"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dollNameTV" />
+
+        <TextView
+            android:id="@+id/transactionQuantityTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Quantity: "
+            android:textColor="@color/defaultText"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/transactionDateTV"
+            app:layout_constraintStart_toStartOf="@+id/dollNameTV"
+            android:layout_marginBottom="5dp"/>
+
+        <EditText
+            android:id="@+id/quantityET"
+            android:visibility="gone"
+            android:hint="Enter new quantity"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextbg_no_underline"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:textColor="@color/secondaryText"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/transactionQuantityTV"
+            app:layout_constraintStart_toEndOf="@+id/transactionQuantityTV"
+            app:layout_constraintTop_toTopOf="@+id/transactionQuantityTV" />
+
+        <TextView
+            android:id="@+id/transactionDateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13 February 2024"
+            android:textColor="@color/defaultText"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/transactionIV"
+            app:layout_constraintStart_toStartOf="@+id/dollNameTV" />
+
+        <ImageButton
+            android:id="@+id/editImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/baseline_edit_24"
+            app:layout_constraintBottom_toBottomOf="@+id/transactionDateTV"
+            app:layout_constraintEnd_toStartOf="@+id/deleteImageButton" />
+
+        <ImageButton
+            android:id="@+id/deleteImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/baseline_delete_24"
+            app:layout_constraintBottom_toBottomOf="@+id/transactionDateTV"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
