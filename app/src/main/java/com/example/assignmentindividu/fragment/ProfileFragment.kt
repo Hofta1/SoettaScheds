@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.assignmentindividu.ClosingPage
 import com.example.assignmentindividu.MainActivity
 import com.example.assignmentindividu.R
 import com.example.assignmentindividu.`object`.Data
@@ -52,7 +53,7 @@ class ProfileFragment : Fragment() {
 
 
         logoutButton.setOnClickListener {
-            val intent = Intent(requireContext(),MainActivity::class.java)
+            val intent = Intent(requireContext(),ClosingPage::class.java)
             Data.myProfile = null
             startActivity(intent)
         }

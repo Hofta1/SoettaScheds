@@ -70,10 +70,10 @@ class DollDetail : AppCompatActivity() {
         val dollPath = dollData?.path
 
         dollNameTV.text = dollName
-        dollPriceTV.text = ("$$dollPrice")
+        dollPriceTV.text = ("Rp.$dollPrice")
         dollRatingTV.text = dollRating.toString()
         dollDescTV.text = dollDescription
-        dollSizeTV.text = ("$dollSize in")
+        dollSizeTV.text = ("$dollSize")
         if (dollPath != null) {
             lifecycleScope.launch{
                 loadImage(dollImageView,dollPath)

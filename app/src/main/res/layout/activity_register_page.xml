@@ -234,7 +234,8 @@
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="186dp"
             tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="443dp" />
+            tools:layout_editor_absoluteY="443dp"
+            android:checked="true" />
 
         <RadioButton
             android:id="@+id/femaleButton"

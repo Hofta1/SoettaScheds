@@ -119,6 +119,77 @@ class DatabaseHelper(context: Context):SQLiteOpenHelper(context,"puffpoof.db",nu
         //need check if profile null
     }
 
+    fun checkUsername(username: String): Boolean{
+        val profile = Profile()
+        val db = readableDatabase
+        val query = "SELECT * FROM Users WHERE Username = '$username'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            profile.userID = cursor.getInt(cursor.getColumnIndexOrThrow("UserID"))
+            profile.username = cursor.getString(cursor.getColumnIndexOrThrow("Username"))
+            profile.email = cursor.getString(cursor.getColumnIndexOrThrow("Email"))
+            profile.password = cursor.getString(cursor.getColumnIndexOrThrow("Password"))
+            profile.telephoneNumber = cursor.getString(cursor.getColumnIndexOrThrow("TelephoneNumber"))
+            profile.gender = cursor.getString(cursor.getColumnIndexOrThrow("Gender"))
+        }
+        cursor.close()
+        db.close()
+        if(profile.username!=null){
+            return true
+        }
+        return false
+    }
+
+    fun checkPassword(password: String): Boolean{
+        val profile = Profile()
+        val db = readableDatabase
+        val query = "SELECT * FROM Users WHERE Password = '$password'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            profile.userID = cursor.getInt(cursor.getColumnIndexOrThrow("UserID"))
+            profile.username = cursor.getString(cursor.getColumnIndexOrThrow("Username"))
+            profile.email = cursor.getString(cursor.getColumnIndexOrThrow("Email"))
+            profile.password = cursor.getString(cursor.getColumnIndexOrThrow("Password"))
+            profile.telephoneNumber = cursor.getString(cursor.getColumnIndexOrThrow("TelephoneNumber"))
+            profile.gender = cursor.getString(cursor.getColumnIndexOrThrow("Gender"))
+        }
+        cursor.close()
+        db.close()
+        if(profile.password!=null){
+            return true
+        }
+        return false
+        //need check if profile null
+    }
+
+    fun checkEmail(email: String): Boolean{
+        val profile = Profile()
+        val db = readableDatabase
+        val query = "SELECT * FROM Users WHERE Email = '$email'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            profile.userID = cursor.getInt(cursor.getColumnIndexOrThrow("UserID"))
+            profile.username = cursor.getString(cursor.getColumnIndexOrThrow("Username"))
+            profile.email = cursor.getString(cursor.getColumnIndexOrThrow("Email"))
+            profile.password = cursor.getString(cursor.getColumnIndexOrThrow("Password"))
+            profile.telephoneNumber = cursor.getString(cursor.getColumnIndexOrThrow("TelephoneNumber"))
+            profile.gender = cursor.getString(cursor.getColumnIndexOrThrow("Gender"))
+        }
+        cursor.close()
+        db.close()
+        if(profile.email!=null){
+            return true
+        }
+        return false
+        //need check if profile null
+    }
+
     fun insertTransaction(transaction: Transaction){
         val db = writableDatabase
         val values = ContentValues().apply {

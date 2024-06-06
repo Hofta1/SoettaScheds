@@ -7,4 +7,7 @@
     <string name="pricePlaceholder">$12</string>
     <string name="sizePlaceholder">5 in</string>
     <string name="usernamePlaceholder">adminpuff</string>
+    <string name="OTP_String1">We have sent a 6 digit OTP code to</string>
+    <string name="phone_placeholder">0851234131254</string>
+    <string name="otp_string2">Please input the code: </string>
 </resources>

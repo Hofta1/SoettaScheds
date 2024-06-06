@@ -66,9 +66,8 @@ class RegisterPage : AppCompatActivity() {
 
 
         //initialize
-        println("aaaaa" + Data.profileList)
 
-        maleRB.isChecked
+        databaseHelper = DatabaseHelper(this)
 
         usernameET.doOnTextChanged{text, start, before, count ->
             if(text!!.isEmpty()){
@@ -120,15 +119,23 @@ class RegisterPage : AppCompatActivity() {
                 val toast = Toast.makeText(this, "Username can't be empty", Toast.LENGTH_SHORT)
                 toast.show()
             }
-            else if(usernameET.text.toString() == "admin"){
+
+            else if(databaseHelper.checkUsername(usernameET.text.toString())){
                 val toast = Toast.makeText(this, "There is already this username", Toast.LENGTH_SHORT)
                 toast.show()
             }
+
 
             else if(passET.text.toString().isEmpty()){
                 val toast = Toast.makeText(this, "Password can't be empty", Toast.LENGTH_SHORT)
                 toast.show()
             }
+
+            else if(databaseHelper.checkPassword(passET.text.toString())){
+                val toast = Toast.makeText(this, "There is already this password", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+
             else if(passET.text.toString().length < 8){
                 val toast = Toast.makeText(this, "Password need to be longer than 8 characters", Toast.LENGTH_SHORT)
                 toast.show()
@@ -137,6 +144,12 @@ class RegisterPage : AppCompatActivity() {
                 val toast = Toast.makeText(this, "Email can't be empty", Toast.LENGTH_SHORT)
                 toast.show()
             }
+
+            else if(databaseHelper.checkEmail(emailET.text.toString())){
+                val toast = Toast.makeText(this, "There is already this email", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+
             else if(!emailET.text.toString().endsWith("@puff.com")){
                 val toast = Toast.makeText(this, "Email must ends with '@puff.com'", Toast.LENGTH_SHORT)
                 toast.show()
@@ -158,7 +171,6 @@ class RegisterPage : AppCompatActivity() {
                 val newProfile = Profile(userID, username, password, email, phoneNumber, gender)
 
                 Data.profileList?.add(newProfile)
-                databaseHelper = DatabaseHelper(this)
                 databaseHelper.insertProfile(newProfile)
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
@@ -171,6 +183,8 @@ class RegisterPage : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
     fun convertAllToString(){
         username = usernameET.text.toString()
         password = passET.text.toString()

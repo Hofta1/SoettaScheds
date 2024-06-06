@@ -79,22 +79,6 @@ class MainActivity : AppCompatActivity() {
 
         databaseHelper = DatabaseHelper(this)
         if(databaseHelper.getDolls().isEmpty()){
-//            databaseHelper.insertDoll(Doll(downloadImage("https://images-cdn.ubuy.co.id/633b0a3f4467b50d284845c5-toys-studio-36-inch-big-teddy-bear-cute.jpg"),1, "Teddy Bear","Medium", 4.8, 5.0, "A classic teddy bear that's loved by all kids!"))
-//            databaseHelper.insertDoll(Doll(R.drawable.barbie,2, "Barbie","Medium", 4.5, 7.0, "Customize your barbie and choose what barbie wear!"))
-//            databaseHelper.insertDoll(Doll(R.drawable.bigteddy,3, "Big Teddy","Medium", 4.7, 20.0, "A classic but twice more hug-able"))
-//            databaseHelper.insertDoll(Doll(R.drawable.bluebear,4, "Clubby","Medium", 4.1, 4.5, "Teddy's new friend. Likes blueberry!"))
-//            databaseHelper.insertDoll(Doll(R.drawable.cat,5, "Kitty","Medium", 4.9, 6.0, "A cute white cat that likes to laze around. Meow!"))
-//            databaseHelper.insertDoll(Doll(R.drawable.corgi,6, "Cappuccino","Medium", 4.8, 6.0, "A cute corgi that will follow you around!"))
-//            databaseHelper.insertDoll(Doll(R.drawable.dog,7, "Coffee","Medium", 4.5, 6.0, "A talkative dog. Bark bark!"))
-//            databaseHelper.insertDoll(Doll(R.drawable.elephant,8, "Dumban","Medium", 4.4, 5.5, "They say she can fly with her huge ear"))
-//            databaseHelper.insertDoll(Doll(R.drawable.fairy,9, "Aradum","Medium", 4.1, 4.0, "A brave fairy that protects the forest"))
-//            databaseHelper.insertDoll(Doll(R.drawable.monkey,10, "Manke","Medium", 3.5, 5.5, "A polite monkey that always say please"))
-//            databaseHelper.insertDoll(Doll(R.drawable.mushroom,11, "Fungee","Medium", 4.7, 5.0, "It likes to chill around and sunbath"))
-//            databaseHelper.insertDoll(Doll(R.drawable.pillowdog,12, "Pillow Dog","Medium", 4.6, 7.0, "A dog that will accompany you to sleep"))
-//            databaseHelper.insertDoll(Doll(R.drawable.pillowpengu,13, "Pillow Penguin","Medium", 4.9, 7.0, "A penguin that will accompany you to sleep"))
-//            databaseHelper.insertDoll(Doll(R.drawable.rabbit,14, "Bunny","Medium", 4.9, 5.0, "A friendly rabbit that wants to be friend with you. Just don't take his carrot"))
-//            databaseHelper.insertDoll(Doll(R.drawable.reversibleoctopus,15, "Octopy","Medium", 4.8, 7.0, "A moody octopus"))
-//            databaseHelper.insertDoll(Doll(R.drawable.shark,16, "Bruce","Medium", 4.4, 6.0, "A vegetarian shark that likes to eat"))
             val url = "https://api.npoint.io/9d7f4f02be5d5631a664"
             requestQueue = Volley.newRequestQueue(this)
 
@@ -122,16 +106,6 @@ class MainActivity : AppCompatActivity() {
         }
 //
 
-
-
-        fun checkData(username: String, password: String): Profile? {
-            Data.profileList?.forEach(){ profile ->
-                if(profile.username == username && profile.password == password){
-                    return profile
-                }
-            }
-            return null
-        }
 
         passET.doOnTextChanged{ text, _, _, _ ->
             if(text!!.isEmpty()){
@@ -172,12 +146,12 @@ class MainActivity : AppCompatActivity() {
         loginButton.setOnClickListener{
 
             val loginProfile2 = databaseHelper.getProfile(usernameET.text.toString(), passET.text.toString())
-            if(loginProfile2.username ==null){
+            if(loginProfile2.username == null){
                 val toast = Toast.makeText(this, "There is no username or password", Toast.LENGTH_SHORT)
                 toast.show()
             }
             else{
-                val intent = Intent(this,HomePage::class.java)
+                val intent = Intent(this,OTPPage::class.java)
                 Data.myProfile = loginProfile2
                 startActivity(intent)
             }
