@@ -43,7 +43,7 @@ class ClosingPage : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    fun getsLastLocation(){
+    private fun getsLastLocation(){
         if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
@@ -75,7 +75,7 @@ class ClosingPage : AppCompatActivity(), OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == 1)
         {
-            if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 getsLastLocation()
             }
@@ -91,7 +91,8 @@ class ClosingPage : AppCompatActivity(), OnMapReadyCallback {
 
         var myLocation = LatLng(currLocation.latitude, currLocation.longitude)
         var cameraPosition = CameraPosition.Builder().target(myLocation).zoom(20.0F).tilt(60.0F).build()
-        myMap.addMarker(MarkerOptions().position(myLocation))
+        val marker = myMap.addMarker(MarkerOptions().position(myLocation).title("PuFF and Poof"))
+        marker?.showInfoWindow()
         myMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         myMap.isBuildingsEnabled = true
     }

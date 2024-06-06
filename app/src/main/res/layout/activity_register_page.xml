@@ -181,7 +181,7 @@
         app:layout_constraintEnd_toStartOf="@+id/rightguideline"
         app:layout_constraintStart_toStartOf="@+id/leftguideline"
         app:layout_constraintTop_toBottomOf="@+id/EmailTL"
-        app:startIconDrawable="@android:drawable/ic_menu_call"
+        app:startIconDrawable="@android:drawable/sym_action_call"
         app:startIconScaleType="centerInside"
         app:startIconTint="#000000"
         tools:visibility="visible">

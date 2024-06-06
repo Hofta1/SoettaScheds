@@ -14,7 +14,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingHorizontal="18dp"
         android:gravity="center_vertical"
         android:background="@color/primaryColor">
 
@@ -49,6 +51,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/dollDescLayout"
@@ -57,12 +60,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dollDescLayout"
         android:layout_width="match_parent"
-        android:layout_height="384dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="420dp"
         android:background="@drawable/detailoutline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dollImageView">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/dollName"
@@ -127,8 +129,8 @@
             android:id="@+id/dollDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="28dp"
+            android:layout_marginTop="12dp"
             android:layout_marginRight="28dp"
             android:text="This is the description of the doll awdawd ad aw dawd a adaw daw dawd awawdawdawd awdawd adaw dawdawd adaw daw dawd "
             android:textSize="17sp"
@@ -142,33 +144,33 @@
             android:layout_height="50dp"
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
+            android:hint="Enter Quantity"
             app:boxBackgroundColor="#ECECEC"
             app:boxBackgroundMode="filled"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:helperTextTextColor="#CC0606"
+            app:hintTextAppearance="@style/HintTextAppearance"
             app:layout_constraintBottom_toTopOf="@+id/purchaseButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:startIconDrawable="@drawable/baseline_production_quantity_limits_24"
             app:startIconTint="#000000"
-            tools:visibility="visible"
-            android:hint="Enter Quantity"
-            app:hintTextAppearance="@style/HintTextAppearance"
-            >
+            tools:visibility="visible">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/quantityText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="20dp"
-                android:paddingBottom="8dp"
                 android:inputType="number"
                 android:maxLines="1"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/sizeLabel"
             android:layout_width="wrap_content"
@@ -179,6 +181,7 @@
 
             app:layout_constraintBottom_toTopOf="@+id/quantityTL"
             app:layout_constraintStart_toStartOf="@+id/dollDescription" />
+
         <TextView
             android:id="@+id/realSize"
             android:layout_width="wrap_content"
