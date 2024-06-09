@@ -59,11 +59,11 @@
             android:id="@+id/timeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:text="22/12/2024 - 08:00"
             android:textColor="@color/defaultText"
             android:textSize="@dimen/text_size_medium"
-            app:layout_constraintEnd_toStartOf="@+id/bookmarkButton"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintEnd_toStartOf="@id/bookmarkButton"
             app:layout_constraintTop_toTopOf="@+id/airplaneNameTV" />
 
         <TextView

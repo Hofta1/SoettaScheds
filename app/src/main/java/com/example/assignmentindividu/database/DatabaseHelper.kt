@@ -5,29 +5,32 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.assignmentindividu.items.Doll
+import com.example.assignmentindividu.items.Airline
+import com.example.assignmentindividu.items.Flight
 import com.example.assignmentindividu.items.Transaction
 
-class DatabaseHelper(context: Context):SQLiteOpenHelper(context,"puffpoof.db",null,1){
+class DatabaseHelper(context: Context):SQLiteOpenHelper(context,"cgk_flight.db",null,1){
     override fun onCreate(db: SQLiteDatabase?) {
-        val queryCreateDoll = "CREATE TABLE IF NOT EXISTS \"Dolls\" (" +
-                "\"DollID\"INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+        val queryCreateAirlines = "CREATE TABLE IF NOT EXISTS \"Airlines\" (" +
+                "\"AirlineID\"INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "\"Name\"TEXT," +
-                "\"Size\"INTEGER," +
-                "\"Rating\"REAL," +
-                "\"Price\"REAL," +
                 "\"Image\"TEXT," +
-                "\"Description\"BLOB" +
+                "\"Airplane\"TEXT" +
                 ")"
 
-        val queryCreateTransaction = "CREATE TABLE IF NOT EXISTS\"Transactions\" (\n" +
-                "\t\"TransactionID\"\tINTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
-                "\t\"UserID\"\tINTEGER NOT NULL,\n" +
-                "\t\"DollID\"\tINTEGER NOT NULL,\n" +
-                "\t\"TransactionDate\"\tTEXT NOT NULL,\n" +
-                "\t\"Quantity\"\t INT NOT NULL,\n" +
-                "\tFOREIGN KEY(\"DollID\") REFERENCES \"Dolls\"(\"DollID\") ON UPDATE CASCADE,\n" +
-                "\tFOREIGN KEY(\"UserID\") REFERENCES \"Users\"(\"UserID\") ON UPDATE CASCADE\n" +
+        val queryCreateFlights = "CREATE TABLE IF NOT EXISTS\"Flights\" (\n" +
+                "\t\"FlightID\"\tINTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                "\t\"Price\"\tINTEGER NOT NULL,\n" +
+                "\t\"AirlineID\"\tINTEGER NOT NULL,\n" +
+                "\t\"FlightNumber\"\tTEXT NOT NULL,\n" +
+                "\t\"Duration\"\tINT NOT NULL,\n" +
+                "\t\"DepartureAirport\"\tTEXT NOT NULL,\n" +
+                "\t\"DepartureTime\"\tTEXT NOT NULL,\n" +
+                "\t\"DepartureID\"\tTEXT NOT NULL,\n" +
+                "\t\"ArrivalAirport\"\tTEXT NOT NULL,\n" +
+                "\t\"ArrivalTime\"\tTEXT NOT NULL,\n" +
+                "\t\"ArrivalID\"\tTEXT NOT NULL,\n" +
+                "\tFOREIGN KEY(\"AirlineID\") REFERENCES \"Airlines\"(\"AirlineID\") ON UPDATE CASCADE ON DELETE CASCADE\n" +
                 ");"
 
         val queryCreateUser = "CREATE TABLE IF NOT EXISTS \"Users\" (\n" +
@@ -39,50 +42,73 @@ class DatabaseHelper(context: Context):SQLiteOpenHelper(context,"puffpoof.db",nu
                 "\t\"Gender\"\tTEXT NOT NULL\n" +
                 ");"
 
-        db?.execSQL(queryCreateDoll)
-        db?.execSQL(queryCreateTransaction)
+        val queryCreateTransaction = "CREATE TABLE IF NOT EXISTS \"Transactions\" (\n" +
+                "\t\"TransactionID\"\tINTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                "\t\"UserID\"\tINTEGER NOT NULL,\n" +
+                "\t\"FlightID\"\tINTEGER NOT NULL,\n" +
+                "\tFOREIGN KEY(\"UserID\") REFERENCES \"Users\"(\"UserID\") ON UPDATE CASCADE ON DELETE CASCADE,\n" +
+                "\tFOREIGN KEY(\"FlightID\") REFERENCES \"Flights\"(\"FlightID\") ON UPDATE CASCADE ON DELETE CASCADE\n" +
+                ");"
+
+        db?.execSQL(queryCreateAirlines)
+        db?.execSQL(queryCreateFlights)
         db?.execSQL(queryCreateUser)
+        db?.execSQL(queryCreateTransaction)
     }
 
-    fun insertDoll(doll: Doll){
+    fun insertAirline(airline: Airline){
         val db = writableDatabase
         val values = ContentValues().apply {
-//            put("DollID",doll.id)
-            put("Name", doll.name)
-            put("Size", doll.size)
-            put("Rating", doll.rating)
-            put("Price", doll.price)
-            put("Image", doll.path)
-            put("Description", doll.description)
+            put("Name", airline.name)
+            put("Image", airline.path)
+            put("Airplane",airline.airplane)
         }
-        db.insert("Dolls",null,values)
+        db.insert("Airlines",null,values)
         db.close()
     }
 
-    fun getDolls(): List<Doll>{
-        val dolls = ArrayList<Doll>()
+    fun getAirlines(): List<Airline>{
+        val airlines = ArrayList<Airline>()
         val db = readableDatabase
-        val query = "SELECT * FROM Dolls"
+        val query = "SELECT * FROM Airlines"
         val cursor = db.rawQuery(query,null)
         cursor.moveToFirst()
 
         if(cursor.count > 0){
             do{
-                val doll = Doll()
-                doll.id = cursor.getInt(cursor.getColumnIndexOrThrow("DollID"))
-                doll.name = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
-                doll.size = cursor.getString(cursor.getColumnIndexOrThrow("Size"))
-                doll.rating = cursor.getDouble(cursor.getColumnIndexOrThrow("Rating"))
-                doll.price = cursor.getDouble(cursor.getColumnIndexOrThrow("Price"))
-                doll.path = cursor.getString(cursor.getColumnIndexOrThrow("Image"))
-                doll.description = cursor.getString(cursor.getColumnIndexOrThrow("Description"))
-                dolls.add(doll)
+                val airline = Airline()
+                airline.id = cursor.getInt(cursor.getColumnIndexOrThrow("AirlineID"))
+                airline.name = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
+                airline.path = cursor.getString(cursor.getColumnIndexOrThrow("Image"))
+                airline.airplane = cursor.getString(cursor.getColumnIndexOrThrow("Airplane"))
+                airlines.add(airline)
             }while (cursor.moveToNext())
         }
         cursor.close()
         db.close()
-        return (dolls)
+        return (airlines)
     }
+
+    fun checkAirline(airlineName: String): Int?{
+        val airline = Airline()
+        val db = readableDatabase
+        val query = "SELECT * FROM Airlines WHERE Name = '$airlineName'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            airline.id = cursor.getInt(cursor.getColumnIndexOrThrow("AirlineID"))
+            airline.name = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
+        }
+        cursor.close()
+        db.close()
+        if(airline.name!=null){
+            return airline.id
+        }
+        return 0
+    }
+
+
 
     fun insertProfile(profile: Profile){
         val db = writableDatabase
@@ -190,64 +216,195 @@ class DatabaseHelper(context: Context):SQLiteOpenHelper(context,"puffpoof.db",nu
         //need check if profile null
     }
 
+    fun insertFlight(flight: Flight){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("AirlineID", flight.airlineID)
+            put("Price",flight.price)
+            put("FlightNumber", flight.flightNumber)
+            put("Duration",flight.duration)
+            put("DepartureAirport",flight.departureAirport)
+            put("DepartureTime", flight.departureTime)
+            put("DepartureID", flight.departureId)
+            put("ArrivalAirport",flight.arrivalAirport)
+            put("ArrivalTime",flight.arrivalTime)
+            put("ArrivalID", flight.arrivalId)
+        }
+        db.insert("Flights",null,values)
+        db.close()
+    }
+
+    fun getDepartureFlights(): MutableList<Flight>{
+        val flights = ArrayList<Flight>()
+        val db = readableDatabase
+        val query = "SELECT fl.FlightID AS 'FlightID', fl.Price AS 'Price', fl.AirlineID AS 'AirlineID', ai.Image AS 'Image', ai.Name AS 'Name', ai.Airplane AS 'Airplane'," +
+                " fl.FlightNumber AS 'FlightNumber', fl.Duration AS 'Duration', fl.DepartureAirport AS 'DepartureAirport', " +
+                "fl.DepartureTime AS 'DepartureTime', fl.DepartureID AS 'DepartureID', fl.ArrivalID AS 'ArrivalID', fl.ArrivalAirport AS 'ArrivalAirport', fl.ArrivalTime AS 'ArrivalTime' " +
+                "FROM Flights fl JOIN Airlines ai ON fl.AirlineID = ai.AirlineID "+
+                "WHERE fl.DepartureID = 'CGK'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            do{
+                val flight = Flight()
+                flight.flightID = cursor.getInt(cursor.getColumnIndexOrThrow("FlightID"))
+                flight.price = cursor.getInt(cursor.getColumnIndexOrThrow("Price"))
+                flight.airlineID = cursor.getInt(cursor.getColumnIndexOrThrow("AirlineID"))
+                flight.airlineImage = cursor.getString(cursor.getColumnIndexOrThrow("Image"))
+                flight.airlineName = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
+                flight.airplane = cursor.getString(cursor.getColumnIndexOrThrow("Airplane"))
+                flight.duration = cursor.getInt(cursor.getColumnIndexOrThrow("Duration"))
+                flight.flightNumber = cursor.getString(cursor.getColumnIndexOrThrow("FlightNumber"))
+                flight.departureAirport = cursor.getString(cursor.getColumnIndexOrThrow("DepartureAirport"))
+                flight.departureTime = cursor.getString(cursor.getColumnIndexOrThrow("DepartureTime"))
+                flight.departureId = cursor.getString(cursor.getColumnIndexOrThrow("DepartureID"))
+                flight.arrivalAirport = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalAirport"))
+                flight.arrivalTime = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalTime"))
+                flight.arrivalId = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalID"))
+                flights.add(flight)
+            }while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return (flights)
+    }
+
+    fun getArrivalFlights(): MutableList<Flight>{
+        val flights = ArrayList<Flight>()
+        val db = readableDatabase
+        val query = "SELECT fl.FlightID AS 'FlightID', fl.Price AS 'Price', fl.AirlineID AS 'AirlineID', ai.Image AS 'Image', ai.Name AS 'Name', ai.Airplane AS 'Airplane'," +
+                " fl.FlightNumber AS 'FlightNumber', fl.Duration AS 'Duration', fl.DepartureAirport AS 'DepartureAirport', " +
+                "fl.DepartureTime AS 'DepartureTime', fl.DepartureID AS 'DepartureID', fl.ArrivalID AS 'ArrivalID', fl.ArrivalAirport AS 'ArrivalAirport', fl.ArrivalTime AS 'ArrivalTime' " +
+                "FROM Flights fl JOIN Airlines ai ON fl.AirlineID = ai.AirlineID "+
+                "WHERE fl.ArrivalID = 'CGK'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            do{
+                val flight = Flight()
+                flight.flightID = cursor.getInt(cursor.getColumnIndexOrThrow("FlightID"))
+                flight.price = cursor.getInt(cursor.getColumnIndexOrThrow("Price"))
+                flight.airlineID = cursor.getInt(cursor.getColumnIndexOrThrow("AirlineID"))
+                flight.airlineImage = cursor.getString(cursor.getColumnIndexOrThrow("Image"))
+                flight.airlineName = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
+                flight.airplane = cursor.getString(cursor.getColumnIndexOrThrow("Airplane"))
+                flight.duration = cursor.getInt(cursor.getColumnIndexOrThrow("Duration"))
+                flight.flightNumber = cursor.getString(cursor.getColumnIndexOrThrow("FlightNumber"))
+                flight.departureAirport = cursor.getString(cursor.getColumnIndexOrThrow("DepartureAirport"))
+                flight.departureTime = cursor.getString(cursor.getColumnIndexOrThrow("DepartureTime"))
+                flight.departureId = cursor.getString(cursor.getColumnIndexOrThrow("DepartureID"))
+                flight.arrivalAirport = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalAirport"))
+                flight.arrivalTime = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalTime"))
+                flight.arrivalId = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalID"))
+                flights.add(flight)
+            }while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return (flights)
+    }
+    fun deleteTransaction(userId:Int?, flightId: Int?){
+        val db = writableDatabase
+        db.delete("Transactions","UserID=? AND FlightID=?", arrayOf(userId.toString(),flightId.toString()))
+        db.close()
+    }
+
+    fun checkFlight(flightNumber: String): Boolean{
+        val flight = Flight()
+        val db = readableDatabase
+        val query = "SELECT * FROM Flights WHERE FlightNumber = '$flightNumber'"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            flight.flightID = cursor.getInt(cursor.getColumnIndexOrThrow("FlightID"))
+        }
+        cursor.close()
+        db.close()
+        if(flight.flightID!=null){
+            return true
+        }
+        return false
+    }
+
     fun insertTransaction(transaction: Transaction){
         val db = writableDatabase
         val values = ContentValues().apply {
             put("UserID", transaction.userID)
-            put("DollID", transaction.dollID)
-            put("TransactionDate", transaction.transactionDate)
-            put("Quantity", transaction.transactionQuantity)
+            put("FlightID", transaction.flightID)
         }
         db.insert("Transactions",null,values)
         db.close()
     }
 
-    fun deleteTransaction(transaction: Transaction){
-        val db = writableDatabase
-        db.delete("Transactions","TransactionID=?", arrayOf(transaction.transactionID.toString()))
-        db.close()
-    }
-
-    fun getTransaction(userID: Int?): MutableList<Transaction>{
-        val transactions = ArrayList<Transaction>()
+    fun getTransaction(userID: Int?): MutableList<Flight>{
+        val flights = ArrayList<Flight>()
         val db = readableDatabase
-        val query = "SELECT tr.UserID AS 'UserID', dl.Image AS 'Image', tr.DollID AS 'DollID', tr.TransactionID AS 'TransactionID', dl.Name AS 'Name', tr.Quantity AS 'Quantity', tr.TransactionDate AS 'TransactionDate' " +
-                "FROM Transactions tr JOIN Dolls dl ON tr.DollID = dl.DollID JOIN Users us ON tr.UserID = us.UserID "+
+        val query = "SELECT tr.FlightID AS 'FlightID', fl.Price AS 'Price', fl.AirlineID AS 'AirlineID', ai.Image AS 'Image', ai.Name AS 'Name', ai.Airplane AS 'Airplane'," +
+                " fl.FlightNumber AS 'FlightNumber', fl.Duration AS 'Duration', fl.DepartureAirport AS 'DepartureAirport', " +
+                "fl.DepartureTime AS 'DepartureTime', fl.DepartureID AS 'DepartureID', fl.ArrivalID AS 'ArrivalID', fl.ArrivalAirport AS 'ArrivalAirport', fl.ArrivalTime AS 'ArrivalTime' " +
+                "FROM Transactions tr JOIN Flights fl ON tr.FlightID = fl.FlightID JOIN Airlines ai ON fl.AirlineID = ai.AirlineID " +
+                "JOIN Users us ON tr.UserID = us.UserID "+
                 "WHERE tr.UserID = $userID"
         val cursor = db.rawQuery(query,null)
         cursor.moveToFirst()
 
         if(cursor.count > 0){
             do{
-                val transaction = Transaction()
-                transaction.userID = cursor.getInt(cursor.getColumnIndexOrThrow("UserID"))
-                transaction.path = cursor.getString(cursor.getColumnIndexOrThrow("Image"))
-                transaction.dollID = cursor.getInt(cursor.getColumnIndexOrThrow("DollID"))
-                transaction.transactionID = cursor.getInt(cursor.getColumnIndexOrThrow("TransactionID"))
-                transaction.dollName = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
-                transaction.transactionQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("Quantity"))
-                transaction.transactionDate = cursor.getString(cursor.getColumnIndexOrThrow("TransactionDate"))
-                transactions.add(transaction)
+                val flight = Flight()
+                flight.flightID = cursor.getInt(cursor.getColumnIndexOrThrow("FlightID"))
+                flight.price = cursor.getInt(cursor.getColumnIndexOrThrow("Price"))
+                flight.airlineID = cursor.getInt(cursor.getColumnIndexOrThrow("AirlineID"))
+                flight.airlineImage = cursor.getString(cursor.getColumnIndexOrThrow("Image"))
+                flight.airlineName = cursor.getString(cursor.getColumnIndexOrThrow("Name"))
+                flight.airplane = cursor.getString(cursor.getColumnIndexOrThrow("Airplane"))
+                flight.duration = cursor.getInt(cursor.getColumnIndexOrThrow("Duration"))
+                flight.flightNumber = cursor.getString(cursor.getColumnIndexOrThrow("FlightNumber"))
+                flight.departureAirport = cursor.getString(cursor.getColumnIndexOrThrow("DepartureAirport"))
+                flight.departureTime = cursor.getString(cursor.getColumnIndexOrThrow("DepartureTime"))
+                flight.departureId = cursor.getString(cursor.getColumnIndexOrThrow("DepartureID"))
+                flight.arrivalAirport = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalAirport"))
+                flight.arrivalTime = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalTime"))
+                flight.arrivalId = cursor.getString(cursor.getColumnIndexOrThrow("ArrivalID"))
+                flights.add(flight)
             }while (cursor.moveToNext())
         }
         cursor.close()
         db.close()
-        return (transactions)
+        return (flights)
     }
 
-    fun editQuantity(quantity: Int, transactionId: Int){
+    fun checkTransaction(flightId: Int?, userId: Int?): Boolean{
+        val transaction = Transaction()
+        val db = readableDatabase
+        val query = "SELECT * FROM Transactions WHERE FlightID = $flightId AND UserID = $userId"
+        val cursor = db.rawQuery(query,null)
+        cursor.moveToFirst()
+
+        if(cursor.count > 0){
+            transaction.transactionID = cursor.getInt(cursor.getColumnIndexOrThrow("TransactionID"))
+        }
+        cursor.close()
+        db.close()
+        if(transaction.transactionID!=null){
+            return true
+        }
+        return false
+    }
+
+    fun deleteFlights(){
         val db = writableDatabase
-        val query = "UPDATE Transactions "+
-                    "SET Quantity = $quantity "+
-                    "WHERE TransactionID = $transactionId"
-        db?.execSQL(query)
+        db?.execSQL("DELETE FROM Flights")
         db.close()
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS Transactions")
-        db?.execSQL("DROP TABLE IF EXISTS Dolls")
+        db?.execSQL("DROP TABLE IF EXISTS Flights")
+        db?.execSQL("DROP TABLE IF EXISTS Airlines")
         db?.execSQL("DROP TABLE IF EXISTS Users")
+        db?.execSQL("DROP TABLE IF EXISTS Transactions")
         onCreate(db)
     }
 

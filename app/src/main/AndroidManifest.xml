@@ -25,7 +25,7 @@
             android:name=".OTPPage"
             android:exported="true" />
         <activity
-            android:name=".DollDetail"
+            android:name=".FlightDetail"
             android:exported="false" />
         <activity
             android:name=".HomePage"

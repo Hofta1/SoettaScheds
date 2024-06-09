@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/primaryColor"/>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transactionRecyclerView"
             android:layout_width="match_parent"

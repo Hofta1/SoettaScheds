@@ -66,7 +66,6 @@ class RegisterPage : AppCompatActivity() {
 
 
         //initialize
-
         databaseHelper = DatabaseHelper(this)
 
         usernameET.doOnTextChanged{text, start, before, count ->
@@ -150,8 +149,8 @@ class RegisterPage : AppCompatActivity() {
                 toast.show()
             }
 
-            else if(!emailET.text.toString().endsWith("@puff.com")){
-                val toast = Toast.makeText(this, "Email must ends with '@puff.com'", Toast.LENGTH_SHORT)
+            else if(!emailET.text.toString().endsWith("@gmail.com")){
+                val toast = Toast.makeText(this, "Email must ends with '@gmail.com'", Toast.LENGTH_SHORT)
                 toast.show()
             }
             else if(phoneET.text.toString().isEmpty()){
@@ -185,7 +184,7 @@ class RegisterPage : AppCompatActivity() {
     }
 
 
-    fun convertAllToString(){
+    private fun convertAllToString(){
         username = usernameET.text.toString()
         password = passET.text.toString()
         email = emailET.text.toString()

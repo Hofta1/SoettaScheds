@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,22 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentindividu.R
 import com.example.assignmentindividu.database.DatabaseHelper
 import com.example.assignmentindividu.database.loadImage
-import com.example.assignmentindividu.items.Airline
 import com.example.assignmentindividu.items.Flight
 import com.example.assignmentindividu.items.Transaction
 import com.example.assignmentindividu.`object`.Data
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-interface TransactionDeletedListener {
-    fun onTransactionDeleted()
-}
 
 private lateinit var databaseHelper: DatabaseHelper
-private var defaultValue = "Unavailable"
-class TransactionAdapter(private var flightList: MutableList<Flight>, private val itemClickListener: OnItemClickListener, private val listener: TransactionDeletedListener, private val coroutineScope: CoroutineScope, private val context: Context): RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
 
-    private var fullFlightList: List<Flight> = ArrayList(flightList)
+class Transaction2Adapter(private val flightList: MutableList<Flight>, private val itemClickListener: OnItemClickListener, private val listener: TransactionDeletedListener, private val coroutineScope: CoroutineScope, private val context: Context): RecyclerView.Adapter<Transaction2Adapter.ViewHolder>() {
+
     interface OnItemClickListener{
         fun onItemClick(item: Flight)
     }
@@ -40,11 +34,11 @@ class TransactionAdapter(private var flightList: MutableList<Flight>, private va
         val timeTV: TextView = itemView.findViewById(R.id.timeTV)
         val flightIdTV: TextView = itemView.findViewById(R.id.flightIdTV)
         val imageView: ImageView = itemView.findViewById(R.id.airlineIV)
-        val bookmarkButton: ImageButton = itemView.findViewById(R.id.bookmarkButton)
+        val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.transaction_layout, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.transaction_layout2, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -60,9 +54,12 @@ class TransactionAdapter(private var flightList: MutableList<Flight>, private va
         holder.flightNumber.text = currentItem.flightNumber
         holder.timeTV.text = currentItem.departureTime
         holder.flightIdTV.text = ("${currentItem.departureId} - ${currentItem.arrivalId}")
+
+        val currentTransaction = Transaction(Data.myProfile?.userID)
         coroutineScope.launch {
             loadImage(holder.imageView,currentItem.airlineImage!!)
         }
+//        holder.imageView.setImageResource(currentItem.path!!)
         val flightId = currentItem.flightID.toString().toIntOrNull()
         //when editting quantity active
 
@@ -70,30 +67,31 @@ class TransactionAdapter(private var flightList: MutableList<Flight>, private va
             itemClickListener.onItemClick(currentItem)
         }
 
-        holder.bookmarkButton.setOnClickListener{
-            databaseHelper = DatabaseHelper(context)
-            if(databaseHelper.checkTransaction(flightId,Data.myProfile?.userID)){
-                Toast.makeText(context, "You already booked this flight", Toast.LENGTH_SHORT).show()
-            }else{
-                databaseHelper.insertTransaction(Transaction(1, Data.myProfile?.userID,flightId))
-                Toast.makeText(context, "You successfully booked this flight", Toast.LENGTH_SHORT).show()
-                notifyItemChanged(position)
-            }
+        holder.deleteButton.setOnClickListener{
+            showDeleteConfirmation(holder.itemView.context,position,flightId,currentItem)
         }
 
     }
-    fun filter(query: String) {
-        flightList = if (query.isEmpty()) {
-            fullFlightList.toMutableList()
-        } else {
-            val filteredList = fullFlightList.filter {
-                it.airlineName?.contains(query, ignoreCase = true) == true ||
-                        it.flightNumber?.contains(query, ignoreCase = true) == true ||
-                        it.departureId?.contains(query, ignoreCase = true) == true ||
-                        it.arrivalId?.contains(query, ignoreCase = true) == true
-            }
-            filteredList.toMutableList()
+    private fun showDeleteConfirmation(context: Context, position: Int, transactionId: Int?, flight: Flight){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Confirmation")
+        builder.setMessage("Are you sure you want to delete this?")
+        builder.setPositiveButton("Yes"){ dialog, _ ->
+            //hapus di db
+            databaseHelper = DatabaseHelper(context)
+            databaseHelper.deleteTransaction(Data.myProfile?.userID, flight.flightID)
+            flightList.removeAt(position)
+            notifyItemRemoved(position)
+            val toast = Toast.makeText(context,"Transaction deleted successfully",Toast.LENGTH_SHORT)
+            toast.show()
+            dialog.dismiss()
         }
-        notifyDataSetChanged()
+        builder.setNegativeButton("No"){ dialog, _ ->
+            val toast = Toast.makeText(context,"Transaction not deleted",Toast.LENGTH_SHORT)
+            toast.show()
+            dialog.dismiss()
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }

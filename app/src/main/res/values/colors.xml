@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#905C3F</color>
+    <color name="primaryColor">#6C88EB</color>
     <color name="secondaryColor">#402E32</color>
-    <color name="defaultText">#F9E3AF</color>
+    <color name="defaultText">#000000</color>
     <color name="secondaryText">#54433A</color>
+    <color name="defaultButton">#E2B3E2</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

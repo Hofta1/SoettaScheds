@@ -60,10 +60,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="4dp"
             android:text="22/12/2024 - 08:00"
             android:textColor="@color/defaultText"
             android:textSize="@dimen/text_size_medium"
-            app:layout_constraintEnd_toStartOf="@+id/bookmarkButton"
+            app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintTop_toTopOf="@+id/airplaneNameTV" />
 
         <TextView
@@ -79,11 +80,11 @@
 
 
         <ImageButton
-            android:id="@+id/bookmarkButton"
+            android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#00FFFFFF"
-            android:src="@drawable/baseline_bookmark_border_24"
+            android:src="@drawable/baseline_delete_24"
             app:layout_constraintBottom_toBottomOf="@+id/flightNumberTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/timeTV" />

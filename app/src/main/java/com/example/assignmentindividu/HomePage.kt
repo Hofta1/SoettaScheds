@@ -1,17 +1,14 @@
 package com.example.assignmentindividu
 
-import Profile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.example.assignmentindividu.databinding.ActivityHomePageBinding
-import com.example.assignmentindividu.fragment.HomeFragment
+import com.example.assignmentindividu.fragment.ArrivalFragment
+import com.example.assignmentindividu.fragment.DepartureFragment
 import com.example.assignmentindividu.fragment.ProfileFragment
 import com.example.assignmentindividu.fragment.TransactionFragment
 import com.example.assignmentindividu.fragment.adapter.ViewPagerAdapter
-import com.example.assignmentindividu.`object`.Data
 import com.google.android.material.tabs.TabLayout
 
 class HomePage : AppCompatActivity() {
@@ -36,13 +33,15 @@ class HomePage : AppCompatActivity() {
         viewpager = homeBinder.viewPager
         tabLayout = homeBinder.tabLayout
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(HomeFragment(), "Home")
+        adapter.addFragment(DepartureFragment(), "Departure")
+        adapter.addFragment(ArrivalFragment(), "Arrival")
         adapter.addFragment(TransactionFragment(),"Transaction")
         adapter.addFragment(ProfileFragment(),"Profile")
         viewpager.adapter = adapter
         tabLayout.setupWithViewPager(viewpager)
-        tabLayout.getTabAt(0)!!.setIcon(R.drawable.baseline_home_24)
-        tabLayout.getTabAt(1)!!.setIcon(R.drawable.baseline_shopping_cart_24)
-        tabLayout.getTabAt(2)!!.setIcon(R.drawable.baseline_account_circle_24)
+        tabLayout.getTabAt(0)!!.setIcon(R.drawable.la_plane_departure)
+        tabLayout.getTabAt(1)!!.setIcon(R.drawable.la_plane_arrival)
+        tabLayout.getTabAt(2)!!.setIcon(R.drawable.baseline_shopping_cart_24)
+        tabLayout.getTabAt(3)!!.setIcon(R.drawable.baseline_account_circle_24)
     }
 }

@@ -15,7 +15,6 @@
         android:text="Register"
         android:textColor="@color/defaultText"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:cornerRadius="30dp"
         app:iconTint="@color/defaultText"
         app:layout_constraintBottom_toTopOf="@+id/loginText"

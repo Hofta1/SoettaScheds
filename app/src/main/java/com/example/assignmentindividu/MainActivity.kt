@@ -2,14 +2,9 @@ package com.example.assignmentindividu
 
 import Profile
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -20,24 +15,19 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.example.assignmentindividu.database.DatabaseHelper
 import com.example.assignmentindividu.databinding.ActivityMainBinding
-import com.example.assignmentindividu.items.Doll
-import com.example.assignmentindividu.items.Transaction
 import com.example.assignmentindividu.`object`.Data
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
-import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import kotlinx.coroutines.launch
+import com.example.assignmentindividu.items.Airline
+import com.example.assignmentindividu.items.Flight
+import org.json.JSONArray
 import org.json.JSONException
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,19 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var requestQueue: RequestQueue
 
-//    private var transactions = arrayListOf(
-//        Transaction(1,R.drawable.shark,1,1,"Bruce",1, "03-02-2024"),
-//        Transaction(1,R.drawable.cat,2,2,"Kitty",2, "05-02-2024"),
-//        Transaction(1,R.drawable.bigteddy,3,3,"Big Teddy",1, "08-02-2024"),
-//        Transaction(1,R.drawable.normalteddy,4,4,"Teddy Bear",4, "17-02-2024"),
-//        Transaction(1,R.drawable.bluebear,5,5,"Clubby",3, "17-02-2024"),
-//        Transaction(1,R.drawable.corgi,6,6,"Cappuccino",3, "17-02-2024"),
-//        Transaction(2,R.drawable.normalteddy,7,7,"Teddy Bear",1, "25-02-2024"),
-//        Transaction(2,R.drawable.fairy,8,8,"Aradum",1, "29-02-2024"),
-//        Transaction(2,R.drawable.pillowpengu,9,9,"Pillow Penguin",1, "03-03-2024"),
-//        Transaction(2,R.drawable.pillowdog,10,10,"Pillow Dog",1, "05-03-2024")
-//    )
-
+    private val API_KEY = "66220e375d394171df2dbb6e48c05d1a8d97acca32e31dcb3b0bbb62e0abc4c9"
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -78,27 +56,23 @@ class MainActivity : AppCompatActivity() {
         registerText = binding.registerTV
 
         databaseHelper = DatabaseHelper(this)
-        if(databaseHelper.getDolls().isEmpty()){
-            val url = "https://api.npoint.io/9d7f4f02be5d5631a664"
-            requestQueue = Volley.newRequestQueue(this)
-
-            val request = JsonObjectRequest(
-                Request.Method.GET, url, null,
-
-                Response.Listener { response ->
-                    try {
-                        parseJSON(response)
-                    }catch (e: JSONException){
-                        e.printStackTrace()
-                    }
-                },
-                Response.ErrorListener { error ->
-                    Log.e("Volley Error", error.toString())
-                }
-            )
-            requestQueue.add(request)
-        }
         //initialize
+
+        databaseHelper.deleteFlights()
+        val dateNow = LocalDate.now().plusDays(1).toString()
+        val returnDate = LocalDate.now().plusDays(7).toString()
+        val departureId = "CGK"
+        val arrivalId = "BTJ%2C+KNO%2C+PDG%2C+PKU%2C+BTH%2C+CGK%2C+HLP%2C+KJT%2C+YIA%2C+SUB"
+        val arrivalId2 = "DPS%2C+LOP%2C+LBJ%2C+BPN%2C+UPG%2C+MDC%2C+DJJ"
+        val url2 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$departureId&arrival_id=$arrivalId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+        val url3 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$arrivalId&arrival_id=$departureId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+        val url4 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$departureId&arrival_id=$arrivalId2&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+        val url5 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$arrivalId2&arrival_id=$departureId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+        requestData(url2)
+        requestData(url3)
+        requestData(url4)
+        requestData(url5)
+
         if(Data.profileList.isNullOrEmpty()){
             var listToAddData = arrayListOf(Profile(1, "admin", "admin", "admin@puff.com", "081213141516", "male"),
                 Profile(2, "hofta", "hofta", "hofta@puff.com", "081213141516", "male"))
@@ -134,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
-        passET.setOnKeyListener(View.OnKeyListener{v, keyCode, event ->
+        passET.setOnKeyListener(View.OnKeyListener{_, keyCode, event ->
             if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN){
                 loginButton.performClick()
                 return@OnKeyListener true
@@ -164,28 +138,94 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+}
+    private fun requestData(url: String){
+        requestQueue = Volley.newRequestQueue(this)
+
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+
+            Response.Listener { response ->
+                try {
+                    parseResponseAPI(response)
+                }catch (e: JSONException){
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e("Volley Error", error.toString())
+            }
+        )
+        requestQueue.add(request)
     }
 
-
-    private fun parseJSON(jsonObject: JSONObject){
-        databaseHelper = DatabaseHelper(this)
+    private fun parseResponseAPI(jsonObject: JSONObject){
         try {
-            val dollArray = jsonObject.getJSONArray("dolls")
-            for (i in 0 until dollArray.length()){
-                val dollObject = dollArray.getJSONObject(i)
-                val path = dollObject.getString("imageLink")
-                val id = 1
-                val name = dollObject.getString("name")
-                val size = dollObject.getString("size")
-                val rating = dollObject.getString("rating").toDouble()
-                val price = dollObject.getString("price").toDouble()
-                val description = dollObject.getString("desc")
-                databaseHelper.insertDoll(Doll(path,1, name,size, rating, price, description))
-            }
+            val allFlights = jsonObject.getJSONArray("best_flights")
+            val otherFlights = jsonObject.getJSONArray("other_flights")
+            getAllJSONData(allFlights)
+            getAllJSONData(otherFlights)
+
         }catch (e: JSONException) {
             e.printStackTrace()
-            null
         }
     }
+
+    private fun getAllJSONData(jsonArray: JSONArray){
+        databaseHelper = DatabaseHelper(this)
+        val defaultValue = "unavailable"
+        var airplane : String
+        var airlineName : String
+        var airlineLogo : String
+        var flightNumber : String
+        var duration : Int
+        var price : Int
+        var departureAirportName : String
+        var departureTime : String
+        var departureId : String
+        var arrivalAirportName : String
+        var arrivalTime : String
+        var arrivalId : String
+
+        for (i in 0 until jsonArray.length()){
+            val flightObject = jsonArray.getJSONObject(i)
+            val flights = flightObject.getJSONArray("flights")
+            price = flightObject.optString("price","0").toInt()
+            for (j in 0 until flights.length()){
+
+                val flightDetailObject = flights.getJSONObject(j)
+                val departureAirport = flightDetailObject.getJSONObject("departure_airport")
+                val arrivalAirport = flightDetailObject.getJSONObject("arrival_airport")
+
+                airplane = flightDetailObject.optString("airplane",defaultValue)
+                airlineName = flightDetailObject.optString("airline",defaultValue)
+                airlineLogo = flightDetailObject.optString("airline_logo",defaultValue)
+                flightNumber = flightDetailObject.optString("flight_number",defaultValue)
+                duration = flightDetailObject.optString("duration","0").toInt()
+
+                departureAirportName = departureAirport.optString("name",defaultValue)
+                departureTime = departureAirport.optString("time",defaultValue)
+                departureId = departureAirport.optString("id",defaultValue)
+
+                arrivalAirportName = arrivalAirport.optString("name",defaultValue)
+                arrivalTime = arrivalAirport.optString("time",defaultValue)
+                arrivalId = arrivalAirport.optString("id",defaultValue)
+
+                var airlineId = databaseHelper.checkAirline(airlineName)
+                if(airlineId == 0){
+                    databaseHelper.insertAirline(Airline(airlineLogo,1,airlineName,airplane))
+                }
+                airlineId = databaseHelper.checkAirline(airlineName)
+
+                if(!databaseHelper.checkFlight(flightNumber)){
+                    databaseHelper.insertFlight(Flight(1,price,airlineId,airlineLogo,airlineName,airplane,flightNumber,duration,departureAirportName,departureTime,departureId,arrivalAirportName,arrivalTime,arrivalId))
+                }
+            }
+        }
+    }
+
+
+
+
 
 }
