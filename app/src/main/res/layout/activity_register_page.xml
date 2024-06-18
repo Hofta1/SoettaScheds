@@ -11,9 +11,9 @@
         android:layout_width="233dp"
         android:layout_height="69dp"
         android:layout_marginTop="56dp"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="Register"
-        android:textColor="@color/defaultText"
+        android:textColor="?attr/defaultTextColor"
         android:textSize="24sp"
         app:cornerRadius="30dp"
         app:iconTint="@color/defaultText"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Password"
-        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundColor="?attr/ETColor"
         app:boxBackgroundMode="filled"
         app:boxCollapsedPaddingTop="8dp"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="Username"
-        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundColor="?attr/ETColor"
         app:boxBackgroundMode="filled"
         app:boxCollapsedPaddingTop="8dp"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -100,7 +100,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/headerguideline"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:textColor="?attr/defaultTextColor"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftguideline"
@@ -114,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
+        app:layout_constraintGuide_end="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/headerguideline"
@@ -129,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Email"
-        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundColor="?attr/ETColor"
         app:boxBackgroundMode="filled"
         app:boxCollapsedPaddingTop="8dp"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -164,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Phone Number"
-        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundColor="?attr/ETColor"
         app:boxBackgroundMode="filled"
         app:boxCollapsedPaddingTop="8dp"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -198,7 +199,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="#ECECEC"
+        android:background="?attr/ETColor"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/rightguideline"
         app:layout_constraintStart_toStartOf="@+id/leftguideline"

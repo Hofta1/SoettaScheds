@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ClosingPage">
 
 
@@ -14,8 +13,9 @@
         android:layout_height="wrap_content"
         android:text="Thank You"
         android:textAlignment="center"
-        android:textColor="@color/primaryColor"
-        android:textSize="24sp"
+        android:textColor="?attr/defaultTextColor"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/rightguideline"
         app:layout_constraintStart_toStartOf="@+id/leftguideline"
         app:layout_constraintTop_toBottomOf="@id/headerguideline"/>
@@ -24,18 +24,16 @@
         android:id="@+id/ShortMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Don’t forget to visit our store!"
+        android:text="Don’t forget to visit our airport!"
         android:textAlignment="center"
-        android:textColor="@color/primaryColor"
+        android:textColor="?attr/defaultTextColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/Maps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ThanksWord"/>
 
 
-    <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/Maps"
         android:layout_width="350dp"
         android:layout_height="400dp"
@@ -50,10 +48,10 @@
         android:id="@+id/ClosingButton"
         android:layout_width="233dp"
         android:layout_height="69dp"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="?attr/colorPrimary"
         android:layout_marginBottom="50dp"
         android:text="Yes"
-        android:textColor="@color/defaultText"
+        android:textColor="?attr/defaultTextColor"
         android:textSize="24sp"
         android:textStyle="bold"
         app:cornerRadius="30dp"
@@ -73,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
+        app:layout_constraintGuide_end="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/headerguideline"

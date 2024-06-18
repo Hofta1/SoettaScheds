@@ -18,7 +18,7 @@
         android:paddingTop="5dp"
         android:paddingHorizontal="18dp"
         android:gravity="center_vertical"
-        android:background="@color/primaryColor">
+        android:background="?attr/colorPrimary">
 
         <ImageButton
             android:id="@+id/FlightDetailBackButton"
@@ -75,7 +75,6 @@
             android:layout_marginTop="36dp"
             android:text="Airline Name"
             android:textAlignment="center"
-            android:textColor="@color/defaultText"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +88,6 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="28dp"
             android:text="Code"
-            android:textColor="@color/defaultText"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@+id/AirlineName"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="Airplane Type: "
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/AirlineName"
             app:layout_constraintTop_toBottomOf="@+id/AirlineName" />
 
@@ -113,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/TypePlanePlaceholder"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/AirplaneType"
             app:layout_constraintStart_toEndOf="@+id/AirplaneType" />
 
@@ -121,11 +119,11 @@
             android:id="@+id/FlightDuration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="28dp"
-            android:text="Flight Duration 3h30m"
-            android:textSize="17sp"
+            android:layout_marginEnd="28dp"
+            android:text="Flight Duration: 3h30m"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/AirplaneType" />
@@ -136,72 +134,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:text="Destination: "
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/FlightDuration"
             app:layout_constraintTop_toBottomOf="@+id/FlightDuration" />
-
-        <TextView
-            android:id="@+id/Departure"
-            android:layout_width="wrap_content"
+        
+        <HorizontalScrollView
+            android:id="@+id/DepartureScrollView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
             android:layout_marginTop="10dp"
-            android:text="Departure: "
-            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@+id/Destination"
-            app:layout_constraintTop_toBottomOf="@+id/Destination" />
-
-        <TextView
-            android:id="@+id/DepartureAirport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/AirportArrivalPlaceholder"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Departure"
-            app:layout_constraintStart_toEndOf="@+id/Departure" />
-
+            app:layout_constraintTop_toBottomOf="@+id/Destination">
+            <TextView
+                android:id="@+id/DepartureAirport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AirportArrivalPlaceholder"
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:scrollHorizontally="true"/>
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/DateDeparture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="28dp"
             android:text="Time: "
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/Departure"
-            app:layout_constraintTop_toBottomOf="@+id/Departure" />
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DepartureScrollView" />
 
         <TextView
             android:id="@+id/TimeDeparture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ArrivalTime"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/DateDeparture"
             app:layout_constraintStart_toEndOf="@+id/DateDeparture" />
 
-        <TextView
-            android:id="@+id/Arrival"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/ArrivalScrollView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="20dp"
-            android:text="Arrival: "
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/DateDeparture"
-            app:layout_constraintTop_toBottomOf="@+id/DateDeparture" />
-
-        <TextView
-            android:id="@+id/ArrivalAirport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/AirportArrivalPlaceholder"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Arrival"
-            app:layout_constraintStart_toEndOf="@+id/Arrival" />
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DateDeparture">
+            <TextView
+                android:id="@+id/ArrivalAirport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/AirportArrivalPlaceholder"
+                android:textSize="16sp"/>
+        </HorizontalScrollView>
 
 
         <TextView
@@ -211,16 +205,16 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="10dp"
             android:text="Time: "
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/Arrival"
-            app:layout_constraintTop_toBottomOf="@+id/Arrival" />
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/ArrivalScrollView"
+            app:layout_constraintTop_toBottomOf="@+id/ArrivalScrollView" />
 
         <TextView
             android:id="@+id/TimeArrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ArrivalTime"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/DateArrival"
             app:layout_constraintStart_toEndOf="@+id/DateArrival" />
 
@@ -232,9 +226,8 @@
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/defaultButton"
             android:text="Add Flight"
-            android:textColor="@color/defaultText"
+            android:textColor="@color/black"
             android:textSize="22sp"
-            android:textStyle="bold"
             app:cornerRadius="30dp"
             app:iconTint="#F9E3AF"
             app:layout_constraintBottom_toBottomOf="parent"

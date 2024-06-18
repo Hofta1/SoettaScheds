@@ -65,6 +65,7 @@ class DepartureFragment : Fragment(), TransactionDeletedListener {
     }
 
     private fun setupSearchView() {
+        searchView.setOnClickListener { searchView.isIconified = false }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {

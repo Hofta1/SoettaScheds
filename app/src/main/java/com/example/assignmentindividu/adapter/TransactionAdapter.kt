@@ -1,20 +1,18 @@
 package com.example.assignmentindividu.adapter
 
-import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentindividu.R
 import com.example.assignmentindividu.database.DatabaseHelper
 import com.example.assignmentindividu.database.loadImage
-import com.example.assignmentindividu.items.Airline
 import com.example.assignmentindividu.items.Flight
 import com.example.assignmentindividu.items.Transaction
 import com.example.assignmentindividu.`object`.Data
@@ -41,6 +39,7 @@ class TransactionAdapter(private var flightList: MutableList<Flight>, private va
         val flightIdTV: TextView = itemView.findViewById(R.id.flightIdTV)
         val imageView: ImageView = itemView.findViewById(R.id.airlineIV)
         val bookmarkButton: ImageButton = itemView.findViewById(R.id.bookmarkButton)
+        val flightItem: ConstraintLayout = itemView.findViewById(R.id.flightItemLayout)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,7 +65,7 @@ class TransactionAdapter(private var flightList: MutableList<Flight>, private va
         val flightId = currentItem.flightID.toString().toIntOrNull()
         //when editting quantity active
 
-        holder.imageView.setOnClickListener{
+        holder.flightItem.setOnClickListener{
             itemClickListener.onItemClick(currentItem)
         }
 
@@ -77,6 +76,7 @@ class TransactionAdapter(private var flightList: MutableList<Flight>, private va
             }else{
                 databaseHelper.insertTransaction(Transaction(1, Data.myProfile?.userID,flightId))
                 Toast.makeText(context, "You successfully booked this flight", Toast.LENGTH_SHORT).show()
+                flightList.add(position,currentItem)
                 notifyItemChanged(position)
             }
         }

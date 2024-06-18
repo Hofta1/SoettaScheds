@@ -25,9 +25,11 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.assignmentindividu.items.Airline
 import com.example.assignmentindividu.items.Flight
+import com.example.assignmentindividu.utils.FirstChecker
 import org.json.JSONArray
 import org.json.JSONException
 import java.time.LocalDate
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var requestQueue: RequestQueue
 
-    private val API_KEY = "66220e375d394171df2dbb6e48c05d1a8d97acca32e31dcb3b0bbb62e0abc4c9"
+    private val API_KEY = "64106f338bff416bdc4b48bd9031e0a09a26ee10f4b711c7270e3980a1544e05"
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -59,19 +61,22 @@ class MainActivity : AppCompatActivity() {
         //initialize
 
         databaseHelper.deleteFlights()
-        val dateNow = LocalDate.now().plusDays(1).toString()
-        val returnDate = LocalDate.now().plusDays(7).toString()
-        val departureId = "CGK"
-        val arrivalId = "BTJ%2C+KNO%2C+PDG%2C+PKU%2C+BTH%2C+CGK%2C+HLP%2C+KJT%2C+YIA%2C+SUB"
-        val arrivalId2 = "DPS%2C+LOP%2C+LBJ%2C+BPN%2C+UPG%2C+MDC%2C+DJJ"
-        val url2 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$departureId&arrival_id=$arrivalId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
-        val url3 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$arrivalId&arrival_id=$departureId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
-        val url4 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$departureId&arrival_id=$arrivalId2&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
-        val url5 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$arrivalId2&arrival_id=$departureId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
-        requestData(url2)
-        requestData(url3)
-        requestData(url4)
-        requestData(url5)
+        if(FirstChecker.isFirstRun(this)){
+            val dateNow = LocalDate.now().plusDays(1).toString()
+            val returnDate = LocalDate.now().plusDays(7).toString()
+            val departureId = "CGK"
+            val arrivalId = "BTJ%2C+KNO%2C+PDG%2C+PKU%2C+BTH%2C+CGK%2C+HLP%2C+KJT%2C+YIA%2C+SUB"
+            val arrivalId2 = "DPS%2C+LOP%2C+LBJ%2C+BPN%2C+UPG%2C+MDC%2C+DJJ"
+            val url2 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$departureId&arrival_id=$arrivalId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+            val url3 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$arrivalId&arrival_id=$departureId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+            val url4 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$departureId&arrival_id=$arrivalId2&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+            val url5 = "https://serpapi.com/search.json?engine=google_flights&departure_id=$arrivalId2&arrival_id=$departureId&gl=id&hl=en&currency=IDR&outbound_date=$dateNow&return_date=$returnDate&api_key=$API_KEY"
+            requestData(url2)
+            requestData(url3)
+            requestData(url4)
+            requestData(url5)
+        }
+
 
         if(Data.profileList.isNullOrEmpty()){
             var listToAddData = arrayListOf(Profile(1, "admin", "admin", "admin@puff.com", "081213141516", "male"),
@@ -108,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
-        passET.setOnKeyListener(View.OnKeyListener{_, keyCode, event ->
+        passET.setOnKeyListener(View.OnKeyListener{v, keyCode, event ->
             if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN){
                 loginButton.performClick()
                 return@OnKeyListener true

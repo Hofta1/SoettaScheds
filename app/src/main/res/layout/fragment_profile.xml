@@ -18,10 +18,11 @@
             android:textAlignment="center"
             android:gravity="center"
             android:textStyle="bold"
+            android:textColor="?attr/defaultTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/primaryColor"
+            android:background="?attr/colorPrimary"
             />
 
 
@@ -32,7 +33,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="#EFEFEF"
-        android:outlineAmbientShadowColor="@color/primaryColor"
+        android:outlineAmbientShadowColor="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileTitle"
@@ -59,6 +60,7 @@
             android:text="Username: "
             android:textStyle="bold"
             android:textSize="20sp"
+            android:textColor="?attr/defaultTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,9 +75,10 @@
             android:autoSizeTextType="uniform"
             android:text="@string/usernamePlaceholder"
             android:textSize="20sp"
+            android:layout_marginStart="5sp"
             app:layout_constraintBottom_toBottomOf="@+id/usernameLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/usernameLabel" />
+            app:layout_constraintStart_toEndOf="@+id/usernameLabel"
+            android:textColor="?attr/defaultTextColor"/>
 
         <TextView
             android:id="@+id/emailLabel"
@@ -86,13 +89,15 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/usernameLabel"
-            app:layout_constraintTop_toBottomOf="@+id/usernameLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/usernameLabel"
+            android:textColor="?attr/defaultTextColor"/>
 
         <TextView
             android:id="@+id/emailText"
             android:layout_width="293dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
+            android:layout_marginStart="5sp"
             android:autoSizeMaxTextSize="20sp"
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
@@ -100,8 +105,8 @@
             android:text="admin@puff.com"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/emailLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/emailLabel" />
+            app:layout_constraintStart_toEndOf="@+id/emailLabel"
+            android:textColor="?attr/defaultTextColor"/>
 
         <TextView
             android:id="@+id/phoneLabel"
@@ -112,13 +117,15 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/emailLabel"
-            app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/emailLabel"
+            android:textColor="?attr/defaultTextColor"/>
 
         <TextView
             android:id="@+id/phoneNumberText"
             android:layout_width="214dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
+            android:layout_marginStart="5sp"
             android:autoSizeMaxTextSize="20sp"
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
@@ -126,8 +133,8 @@
             android:text="@string/phone_placeholder"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/phoneLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/phoneLabel" />
+            app:layout_constraintStart_toEndOf="@+id/phoneLabel"
+            android:textColor="?attr/defaultTextColor"/>
 
 
         <Button
@@ -135,9 +142,9 @@
             android:layout_width="210dp"
             android:layout_height="60dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/defaultButton"
+            android:backgroundTint="?attr/customButtonColor"
             android:text="Logout"
-            android:textColor="@color/defaultText"
+            android:textColor="?attr/defaultTextColor"
             android:textSize="22sp"
             android:textStyle="bold"
             app:cornerRadius="30dp"

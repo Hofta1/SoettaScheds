@@ -2,12 +2,12 @@ package com.example.assignmentindividu.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,7 +45,7 @@ class ArrivalFragment : Fragment(), TransactionDeletedListener {
         titleTV.text = "Arrival"
         val allFlight = databaseHelper.getArrivalFlights()
         transactionRecyclerView = view.findViewById(R.id.transactionRecyclerView)
-
+        searchView = view.findViewById(R.id.searchView)
         transactionAdapter = TransactionAdapter(allFlight,object: TransactionAdapter.OnItemClickListener{
             //waktu click akan pindah ke flight detail page
             override fun onItemClick(item: Flight) {
@@ -64,6 +64,8 @@ class ArrivalFragment : Fragment(), TransactionDeletedListener {
     }
 
     private fun setupSearchView() {
+        searchView.setOnClickListener { searchView.isIconified = false }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {

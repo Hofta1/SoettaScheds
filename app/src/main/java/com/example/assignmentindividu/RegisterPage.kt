@@ -93,8 +93,8 @@ class RegisterPage : AppCompatActivity() {
             if(text!!.isEmpty()){
                 emailLayout.helperText = "email must be filled"
             }
-            else if(!text.endsWith("@puff.com")){
-                emailLayout.helperText = "email must end with @puff.com"
+            else if(!text.endsWith("@gmail.com")){
+                emailLayout.helperText = "email must end with @gmail.com"
             }
             else{
                 emailLayout.helperText = null

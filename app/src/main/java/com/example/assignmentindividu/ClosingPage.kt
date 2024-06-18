@@ -26,14 +26,16 @@ class ClosingPage : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var closingButton: Button
 
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_closing_page)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        getsLastLocation()
+        checkLocationPermission()
 
         closingButton = findViewById(R.id.ClosingButton)
 
@@ -43,28 +45,24 @@ class ClosingPage : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun getsLastLocation(){
-        if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1
-            )
+    private fun checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
+        } else {
+
+            getsLastLocation()
+        }
+    }
+
+    private fun getsLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
             return
         }
-        var task: Task<Location> = fusedLocationProviderClient.getLastLocation()
-        task.addOnSuccessListener { location: Location? ->
-            if(location!=null)
-            {
-                currLocation = location
-            }
-            else
-            {
-                currLocation.longitude = 106.78113
-                currLocation.latitude = -6.20201
-            }
-            var mapFragment:SupportMapFragment = getSupportFragmentManager().findFragmentById(R.id.Maps) as SupportMapFragment
-            mapFragment.getMapAsync(this)
-        }
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.Maps) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     override fun onRequestPermissionsResult(
@@ -86,13 +84,14 @@ class ClosingPage : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(p0: GoogleMap) {
-        myMap = p0
+    override fun onMapReady(googleMap: GoogleMap) {
+        myMap = googleMap
+        val soekarnoHattaLocation = LatLng(-6.125556, 106.655830)
+        val cameraPosition = CameraPosition.Builder().target(soekarnoHattaLocation).zoom(20.0F).tilt(60.0F).build()
 
-        var myLocation = LatLng(currLocation.latitude, currLocation.longitude)
-        var cameraPosition = CameraPosition.Builder().target(myLocation).zoom(20.0F).tilt(60.0F).build()
-        val marker = myMap.addMarker(MarkerOptions().position(myLocation).title("PuFF and Poof"))
+        val marker = myMap.addMarker(MarkerOptions().position(soekarnoHattaLocation).title("Soekarno-Hatta Airport"))
         marker?.showInfoWindow()
+
         myMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         myMap.isBuildingsEnabled = true
     }

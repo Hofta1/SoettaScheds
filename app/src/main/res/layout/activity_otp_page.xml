@@ -13,6 +13,7 @@
         android:layout_marginTop="12dp"
         android:text="Enter Verification Code"
         android:textSize="24sp"
+        android:textColor="?attr/defaultTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/headerguideline"
@@ -27,13 +28,14 @@
         app:layout_constraintEnd_toStartOf="@id/rightguideline"
         app:layout_constraintStart_toEndOf="@id/leftguideline"
         app:layout_constraintTop_toBottomOf="@id/otpTitle"
-        app:srcCompat="@mipmap/message_icon" />
+        app:srcCompat="@mipmap/message_icon_blue" />
 
     <TextView
         android:id="@+id/otp_string1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/OTP_String1"
+        android:textColor="?attr/defaultTextColor"
         app:layout_constraintEnd_toStartOf="@+id/rightguideline"
         app:layout_constraintStart_toStartOf="@+id/leftguideline"
         app:layout_constraintTop_toBottomOf="@id/otpImage"
@@ -45,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/phone_placeholder"
+        android:textColor="?attr/defaultTextColor"
         app:layout_constraintEnd_toStartOf="@+id/rightguideline"
         app:layout_constraintStart_toStartOf="@+id/leftguideline"
         app:layout_constraintTop_toBottomOf="@id/otp_string1"
@@ -61,7 +64,8 @@
         app:layout_constraintStart_toStartOf="@+id/leftguideline"
         app:layout_constraintTop_toBottomOf="@id/phone_number"
         android:layout_marginTop="3dp"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="?attr/defaultTextColor"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +73,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        app:boxBackgroundColor="#ECECEC"
+        app:boxBackgroundColor="?attr/ETColor"
         app:boxBackgroundMode="filled"
         app:boxCollapsedPaddingTop="8dp"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -109,7 +113,8 @@
         android:text="Didn't get the code?, Resend Code"
         app:layout_constraintEnd_toStartOf="@+id/rightguideline"
         app:layout_constraintStart_toStartOf="@+id/leftguideline"
-        app:layout_constraintTop_toBottomOf="@+id/OTPTL" />
+        app:layout_constraintTop_toBottomOf="@+id/OTPTL"
+        />
 
     <Button
         android:id="@+id/submitButton"
@@ -117,9 +122,9 @@
         android:layout_height="69dp"
         android:layout_marginTop="68dp"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="Submit"
-        android:textColor="@color/defaultText"
+        android:textColor="?attr/defaultTextColor"
         android:textSize="24sp"
         android:textStyle="bold"
         app:cornerRadius="30dp"
@@ -141,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
+        app:layout_constraintGuide_end="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/headerguideline"

@@ -12,7 +12,7 @@
     <string name="otp_string2">Please input the code: </string>
     <string name="flightnumber">FlightNumber</string>
     <string name="ArrivalTime">2024-4-03</string>
-    <string name="AirportArrivalPlaceholder">Soekarno Hatta</string>
+    <string name="AirportArrivalPlaceholder">Departure: Soekarno Hatta</string>
     <string name="AirportArrivalCodePlaceholder">CGK</string>
     <string name="TypePlanePlaceholder">Airbus</string>
 </resources>

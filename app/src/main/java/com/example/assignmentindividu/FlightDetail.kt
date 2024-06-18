@@ -3,6 +3,7 @@ package com.example.assignmentindividu
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import com.example.assignmentindividu.database.DatabaseHelper
@@ -69,10 +70,15 @@ class FlightDetail : AppCompatActivity() {
         AirlineCodeTV.text = airlineCode
         RealAirplaneTypeTV.text = airplaneType
         FlightDurationTV.text = ("Duration: ${flightDuration.toString()} minutes")
-        DepartureAiportTV.text = departureAirport
+        DepartureAiportTV.text = ("Departure: ${departureAirport.toString()}")
         TimeDepartureTV.text = timeDeparture
-        ArrivalAirportTV.text = arrivalAirport
+        ArrivalAirportTV.text = ("Arrival: ${arrivalAirport.toString()}")
         TimeArrivalTV.text = timeArrival
+
+        DepartureAiportTV.movementMethod = ScrollingMovementMethod()
+        DepartureAiportTV.isHorizontalScrollBarEnabled= true
+        DepartureAiportTV.isVerticalScrollBarEnabled= false
+        ArrivalAirportTV.isSelected = true
 
 
         if (airlineLogo != null) {

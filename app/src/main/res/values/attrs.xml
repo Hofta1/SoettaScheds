@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="CustomTheme">
+        <attr name="ETColor" format="color" />
+        <attr name="defaultTextColor" format="color" />
+        <attr name="revDefaultTextColor" format="color" />
+        <attr name="customButtonColor" format="color" />
+    </declare-styleable>
+</resources>

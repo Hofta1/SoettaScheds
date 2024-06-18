@@ -20,18 +20,22 @@
             android:textSize="24sp"
             android:paddingVertical="5dp"
             android:textStyle="bold"
+            android:textColor="?attr/defaultTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/primaryColor"/>
+            android:background="?attr/colorPrimary"/>
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@drawable/search_view_custom"
             android:hint="Search Flight ID"
             android:iconifiedByDefault="false"
+            app:iconifiedByDefault="false"
+            app:goIcon="@drawable/abc_ic_search_api_material"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainText" />
