@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/airplaneNameTV"
-            android:layout_width="120dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
@@ -42,6 +42,7 @@
             android:textColor="?attr/defaultTextColor"
             android:textSize="12dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/timeTV"
             app:layout_constraintStart_toEndOf="@+id/airlineIV"
             app:layout_constraintTop_toTopOf="parent" />
 
